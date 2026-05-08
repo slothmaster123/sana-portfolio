@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -63,6 +64,7 @@ export default function RootLayout({
           <main className="pt-14 flex-1">{children}</main>
           <Footer />
         </LanguageProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
