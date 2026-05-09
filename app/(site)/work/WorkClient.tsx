@@ -1,32 +1,37 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { artworks, mediums, type Medium } from "@/lib/artworks";
+import { mediums, type Medium } from "@/lib/artworks";
 
-function ArtworkPlaceholder({ aspectRatio = "4/3" }: { aspectRatio?: string }) {
-  return (
-    <div className="w-full bg-mist" style={{ aspectRatio }} />
-  );
-}
+type WorkItem = {
+  slug: string;
+  title: string;
+  year: string;
+  medium: string;
+  dimensions?: string;
+  aspectRatio?: string;
+  image?: { asset: { _ref: string } } | null;
+  imgUrl?: string | null;
+};
 
-export default function Work() {
+export default function WorkClient({ works }: { works: WorkItem[] }) {
   const [active, setActive] = useState<Medium | "All">("All");
 
+  const allMediums = mediums.filter((m) =>
+    works.some((w) => w.medium === m)
+  );
+
   const filtered =
-    active === "All"
-      ? artworks
-      : artworks.filter((a) => a.medium === active);
+    active === "All" ? works : works.filter((w) => w.medium === active);
+
+  const mediumSlug = (m: string) => m.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-20">
-      <h1 className="font-serif font-light text-[clamp(3rem,8vw,7rem)] leading-none tracking-tight text-ink mb-12">
-        Work
-      </h1>
-
-      {/* Medium filter */}
+    <>
       <div className="flex flex-wrap gap-4 mb-14 border-b border-dust pb-8">
-        {(["All", ...mediums] as (Medium | "All")[]).map((m) => (
+        {(["All", ...allMediums] as (Medium | "All")[]).map((m) => (
           <button
             key={m}
             onClick={() => setActive(m)}
@@ -39,15 +44,32 @@ export default function Work() {
         ))}
       </div>
 
-      {/* Gallery grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filtered.map((work) => (
           <Link
             key={work.slug}
-            href={`/work/${work.medium.toLowerCase().replace(/\s+/g, "-")}/${work.slug}`}
+            href={`/work/${mediumSlug(work.medium)}/${work.slug}`}
             className="group block"
           >
-            <ArtworkPlaceholder aspectRatio={work.aspectRatio} />
+            {work.imgUrl ? (
+              <div
+                className="w-full relative overflow-hidden bg-mist"
+                style={{ aspectRatio: work.aspectRatio ?? "4/3" }}
+              >
+                <Image
+                  src={work.imgUrl}
+                  alt={work.title}
+                  fill
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+            ) : (
+              <div
+                className="w-full bg-mist"
+                style={{ aspectRatio: work.aspectRatio ?? "4/3" }}
+              />
+            )}
             <div className="mt-3">
               <p className="font-serif text-sm group-hover:opacity-50 transition-opacity">
                 {work.title}
@@ -70,6 +92,6 @@ export default function Work() {
           No works in this medium yet.
         </p>
       )}
-    </div>
+    </>
   );
 }

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
 
 const cormorant = Cormorant_Garamond({
@@ -58,11 +56,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${inter.variable}`}
     >
       <body className="bg-paper text-ink min-h-screen flex flex-col">
-        <LanguageProvider>
-          <Nav />
-          <main className="pt-14 flex-1">{children}</main>
-          <Footer />
-        </LanguageProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
