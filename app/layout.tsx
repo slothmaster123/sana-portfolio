@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -57,6 +59,8 @@ export default function RootLayout({
     >
       <body className="bg-paper text-ink min-h-screen flex flex-col">
         <LanguageProvider>{children}</LanguageProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
