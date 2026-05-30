@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/client";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Projects",
   description: "Projects and bodies of work by Sana Iqbal Qutb.",

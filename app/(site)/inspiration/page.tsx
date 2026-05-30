@@ -3,6 +3,8 @@ import { PortableText } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/client";
 import { inspirationPosts } from "@/lib/data";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Inspiration",
   description: "A personal journal of readings, quotes, and reflections by Sana Iqbal Qutb.",

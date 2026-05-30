@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/client";
 import { pressItems as staticPress } from "@/lib/data";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Press",
   description: "Press coverage and publications featuring Sana Iqbal Qutb.",

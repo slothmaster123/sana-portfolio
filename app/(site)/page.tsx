@@ -5,6 +5,8 @@ import { urlForImage } from "@/sanity/image";
 import { getFeatured } from "@/lib/artworks";
 import { newsItems as staticNews } from "@/lib/data";
 
+export const revalidate = 60;
+
 const featuredQuery = `*[_type == "artwork" && featured == true] | order(order asc)[0...6] {
   _id, title, "slug": slug.current, year, medium, image
 }`;

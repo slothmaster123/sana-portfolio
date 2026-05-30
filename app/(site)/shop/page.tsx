@@ -5,6 +5,8 @@ import { sanityFetch } from "@/sanity/client";
 import { urlForImage } from "@/sanity/image";
 import { artworks } from "@/lib/artworks";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Shop",
   description: "Acquire works by Sana Iqbal Qutb — originals and prints.",

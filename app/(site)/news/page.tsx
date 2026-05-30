@@ -3,6 +3,8 @@ import { sanityFetch } from "@/sanity/client";
 import { newsItems as staticNews } from "@/lib/data";
 import SubscribeForm from "./NewsClient";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "News",
   description: "News, exhibitions, and announcements from Sana Iqbal Qutb.",

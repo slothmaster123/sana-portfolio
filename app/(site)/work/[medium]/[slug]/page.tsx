@@ -4,6 +4,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/client";
+
+export const revalidate = 60;
 import { urlForImage } from "@/sanity/image";
 import { artworks } from "@/lib/artworks";
 

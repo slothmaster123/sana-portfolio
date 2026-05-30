@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/client";
+
+export const revalidate = 60;
 import { urlForImage } from "@/sanity/image";
 import { artworks } from "@/lib/artworks";
 import WorkClient from "./WorkClient";

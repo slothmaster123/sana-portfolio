@@ -88,6 +88,8 @@ What is the relationship between the stigma of mental illness and the broader st
 These are research questions, not yet art. But the art will come from living with them long enough.`,
 };
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   return staticProjects.map((p) => ({ slug: p.slug }));
 }
