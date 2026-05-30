@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Press coverage and publications featuring Sana Iqbal Qutb.",
 };
 
-const pressQuery = `*[_type == "press"] | order(year desc) {
+const pressQuery = `*[_type == "pressItem"] | order(year desc) {
   _id, year, title, publication, location, url
 }`;
 

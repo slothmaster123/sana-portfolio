@@ -13,6 +13,7 @@ const links = [
   { href: "/shop", en: "Shop", ur: "دکان" },
   { href: "/inspiration", en: "Inspiration", ur: "الہام" },
   { href: "/news", en: "News", ur: "خبریں" },
+  { href: "/press", en: "Press", ur: "پریس" },
   { href: "/contact", en: "Contact", ur: "رابطہ" },
 ];
 
