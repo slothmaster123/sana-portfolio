@@ -6,12 +6,12 @@ import { useState } from "react";
 import { useLanguage } from "./LanguageContext";
 
 const links = [
-  { href: "/work", en: "Work", ur: "کام" },
+  { href: "/work", en: "Archive", ur: "کام" },
   { href: "/projects", en: "Projects", ur: "منصوبے" },
   { href: "/about", en: "About", ur: "بارے میں" },
   { href: "/cv", en: "CV", ur: "سی وی" },
   { href: "/shop", en: "Shop", ur: "دکان" },
-  { href: "/inspiration", en: "Inspiration", ur: "الہام" },
+  { href: "/inspiration", en: "Journal", ur: "الہام" },
   { href: "/news", en: "News", ur: "خبریں" },
   { href: "/press", en: "Press", ur: "پریس" },
   { href: "/contact", en: "Contact", ur: "رابطہ" },
@@ -23,27 +23,23 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-dust">
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
-        {/* Name / wordmark */}
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-ink/15 bg-paper/85 backdrop-blur-md">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="font-serif text-xs tracking-[0.2em] uppercase text-ink hover:opacity-60 transition-opacity"
+          className="font-serif text-base leading-none tracking-[0.08em] text-ink transition-colors hover:text-clay"
           onClick={() => setOpen(false)}
         >
-          Sana Iqbal Qutb
+          Sana <span className="italic">Iqbal Qutb</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-5">
           {links.map(({ href, en, ur }) => (
             <Link
               key={href}
               href={href}
-              className={`font-sans text-[10px] tracking-[0.15em] uppercase transition-opacity ${
-                pathname === href
-                  ? "opacity-100"
-                  : "opacity-35 hover:opacity-100"
+              className={`font-sans text-[9px] tracking-[0.18em] uppercase transition-colors ${
+                pathname === href ? "text-clay" : "text-ink/55 hover:text-ink"
               }`}
             >
               {t(en, ur)}
@@ -51,44 +47,40 @@ export default function Nav() {
           ))}
           <button
             onClick={toggle}
-            className="font-sans text-[10px] tracking-[0.15em] uppercase opacity-35 hover:opacity-100 transition-opacity ml-2 border-l border-dust pl-6"
+            className="ml-2 border-l border-ink/15 pl-4 font-sans text-[9px] tracking-[0.18em] uppercase text-ink/55 hover:text-clay transition-colors"
           >
             {lang === "en" ? "اردو" : "EN"}
           </button>
         </nav>
 
-        {/* Mobile hamburger */}
         <button
-          className="lg:hidden font-sans text-[10px] tracking-[0.15em] uppercase opacity-60"
+          className="lg:hidden font-sans text-[9px] tracking-[0.18em] uppercase text-ink/70"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          {open ? "Close" : "Menu"}
+          {open ? "Close" : "Index"}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-dust bg-paper">
-          <nav className="max-w-screen-2xl mx-auto px-6 py-8 flex flex-col gap-6">
-            {links.map(({ href, en, ur }) => (
+        <div className="lg:hidden border-t border-ink/15 bg-paper">
+          <nav className="max-w-screen-2xl mx-auto px-6 py-10 grid grid-cols-2 gap-x-6 gap-y-6">
+            {links.map(({ href, en, ur }, index) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className={`font-sans text-xs tracking-[0.15em] uppercase transition-opacity ${
-                  pathname === href ? "opacity-100" : "opacity-40"
+                className={`font-serif text-xl transition-colors ${
+                  pathname === href ? "text-clay italic" : "text-ink/75"
                 }`}
               >
+                <span className="mr-2 font-sans text-[9px] tracking-wider text-ink/35">0{index + 1}</span>
                 {t(en, ur)}
               </Link>
             ))}
             <button
-              onClick={() => {
-                toggle();
-                setOpen(false);
-              }}
-              className="font-sans text-xs tracking-[0.15em] uppercase opacity-40 text-left border-t border-dust pt-4 mt-2"
+              onClick={() => { toggle(); setOpen(false); }}
+              className="col-span-2 mt-2 border-t border-ink/15 pt-5 text-left font-sans text-[10px] tracking-[0.18em] uppercase text-ink/55"
             >
               {lang === "en" ? "اردو" : "English"}
             </button>
