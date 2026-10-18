@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { bio } from "@/lib/data";
+import { getSiteSettings } from "@/lib/content";
 
-export default function Footer() {
+export default async function Footer() {
+  const bio = await getSiteSettings();
   return (
     <footer className="border-t border-dust mt-32 py-12 px-6 md:px-12">
       <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">

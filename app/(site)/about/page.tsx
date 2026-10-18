@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { bio } from "@/lib/data";
+import { getSiteSettings } from "@/lib/content";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,7 +10,8 @@ export const metadata: Metadata = {
     "About Sana Iqbal Qutb — multidisciplinary artist and educator based in Lahore.",
 };
 
-export default function About() {
+export default async function About() {
+  const bio = await getSiteSettings();
   return (
     <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-20">
       {/* Page title */}
@@ -20,7 +23,7 @@ export default function About() {
         {/* Bio column */}
         <div className="lg:col-span-7">
           <div className="space-y-6 font-serif font-light text-lg leading-relaxed text-ink/80">
-            {bio.long.split("\n\n").map((para, i) => (
+            {bio.bioLong.split("\n\n").map((para, i) => (
               <p key={i}>{para}</p>
             ))}
           </div>
@@ -67,34 +70,14 @@ export default function About() {
               Information
             </h2>
             <dl className="space-y-3">
-              <div className="flex gap-4">
-                <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
-                  Born
-                </dt>
-                <dd className="font-serif text-sm">1994, Lahore</dd>
-              </div>
-              <div className="flex gap-4">
-                <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
-                  Based
-                </dt>
-                <dd className="font-serif text-sm">Lahore, Pakistan</dd>
-              </div>
-              <div className="flex gap-4">
-                <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
-                  MFA
-                </dt>
-                <dd className="font-serif text-sm">
-                  Slade School of Fine Art, UCL (2023, Distinction)
-                </dd>
-              </div>
-              <div className="flex gap-4">
-                <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
-                  BFA
-                </dt>
-                <dd className="font-serif text-sm">
-                  Beaconhouse National University (2018, Distinction)
-                </dd>
-              </div>
+              {bio.facts.map((f, i) => (
+                <div key={i} className="flex gap-4">
+                  <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
+                    {f.label}
+                  </dt>
+                  <dd className="font-serif text-sm">{f.value}</dd>
+                </div>
+              ))}
               <div className="flex gap-4">
                 <dt className="font-sans text-[10px] tracking-wider uppercase text-ink/30 w-20 shrink-0">
                   Contact

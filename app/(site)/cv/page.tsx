@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { cvData } from "@/lib/data";
+import { getCv } from "@/lib/content";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "CV",
@@ -20,7 +22,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-export default function CV() {
+export default async function CV() {
+  const cvData = await getCv();
   return (
     <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-20">
       {/* Header */}
@@ -31,6 +34,14 @@ export default function CV() {
         <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-ink/35 mt-4">
           Sana Iqbal Qutb · Lahore, Pakistan
         </p>
+        {cvData.pdfUrl && (
+          <a
+            href={`${cvData.pdfUrl}?dl=Sana-Iqbal-Qutb-CV.pdf`}
+            className="inline-block mt-6 font-sans text-[10px] tracking-[0.15em] uppercase hover:opacity-60 transition-opacity"
+          >
+            Download PDF ↓
+          </a>
+        )}
       </div>
 
       {/* Education */}

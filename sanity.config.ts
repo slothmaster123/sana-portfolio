@@ -17,6 +17,20 @@ export default defineConfig({
           .title("Content")
           .items([
             S.listItem()
+              .title("About & Contact")
+              .id("siteSettings")
+              .child(
+                S.document()
+                  .schemaType("siteSettings")
+                  .documentId("siteSettings")
+                  .title("About & Contact")
+              ),
+            S.listItem()
+              .title("CV")
+              .id("cv")
+              .child(S.document().schemaType("cv").documentId("cv").title("CV")),
+            S.divider(),
+            S.listItem()
               .title("Artworks")
               .schemaType("artwork")
               .child(S.documentTypeList("artwork").title("Artworks")),
@@ -41,6 +55,12 @@ export default defineConfig({
     }),
     visionTool(),
   ],
+
+  document: {
+    // About & Contact and CV are single documents, so hide "New" for them
+    newDocumentOptions: (prev) =>
+      prev.filter((t) => t.templateId !== "siteSettings" && t.templateId !== "cv"),
+  },
 
   schema: { types: schemas },
 });

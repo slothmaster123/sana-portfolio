@@ -3,6 +3,8 @@ import { projectSchema } from "./project";
 import { inspirationSchema } from "./inspiration";
 import { newsSchema } from "./news";
 import { pressSchema } from "./press";
+import { siteSettingsSchema } from "./siteSettings";
+import { cvSchema } from "./cv";
 
 export const schemas = [
   artworkSchema,
@@ -10,4 +12,6 @@ export const schemas = [
   inspirationSchema,
   newsSchema,
   pressSchema,
+  siteSettingsSchema,
+  cvSchema,
 ];
