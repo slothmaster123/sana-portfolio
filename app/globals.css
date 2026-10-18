@@ -1,17 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #111111;
-  --color-paper: #ffffff;
-  --color-mist: #f7f7f7;
-  --color-dust: #e8e8e8;
+  --color-ink: #211d19;
+  --color-paper: #f5f0e6;
+  --color-mist: #e9dfd0;
+  --color-dust: #cfc1ae;
+  --color-clay: #ad5544;
+  --color-moss: #58624d;
+  --color-ochre: #c99342;
 
   --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background: var(--color-paper);
+  background:
+    radial-gradient(circle at 14% 8%, rgb(201 147 66 / 12%), transparent 24rem),
+    radial-gradient(circle at 88% 72%, rgb(173 85 68 / 9%), transparent 28rem),
+    var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -24,30 +30,38 @@ body {
 }
 
 [dir="rtl"] .tracking-widest,
-[dir="rtl"] .tracking-wider {
-  letter-spacing: 0;
-}
+[dir="rtl"] .tracking-wider { letter-spacing: 0; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 ::selection {
-  background: var(--color-ink);
+  background: var(--color-clay);
   color: var(--color-paper);
 }
 
-main {
-  animation: fadein 0.25s ease;
+main { animation: arrive 0.65s cubic-bezier(.2,.7,.2,1); }
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadein {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.editorial-rule {
+  width: 2.75rem;
+  height: 1px;
+  background: var(--color-clay);
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: .22;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
